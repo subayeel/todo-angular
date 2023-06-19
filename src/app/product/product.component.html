@@ -1,0 +1,101 @@
+<div class="content" role="main">
+
+    <aside>
+        <ul>
+            <li>
+                <h2>Products</h2>
+            </li>
+        </ul>
+    </aside>
+    <main>
+
+        <div *ngIf="showModal" (closeModal)="closeModal()" class="modal-overlay">
+            <div class="modal-content">
+                <!-- Modal content goes here -->
+                <div class="header">
+                    <h2>Add Product</h2>
+                    <button (click)="closeModal()" class="delete-btn">Close</button>
+                </div>
+                <form (submit)="handleFormSubmit($event)">
+
+
+                    <label for="name">Name:
+                        <input type="text" name="productName" [(ngModel)]="productName" required>
+
+                    </label>
+
+
+                    <label for="price">Price:<input type="number" name="price" [(ngModel)]="price" required></label>
+
+                    <label for="category">Category:<input type="text" name="category" [(ngModel)]="category"
+                            required></label>
+
+
+                    <label for="color">Color:<input type="text" name="color" [(ngModel)]="color" required></label>
+                    <button class="my-button" type="submit">Submit</button>
+                </form>
+
+
+            </div>
+        </div>
+
+        <div class="header">
+            <h2>My Products</h2>
+            <button (click)="openModal()" class="my-button">Add +</button>
+
+        </div>
+
+        <table>
+            <tr>
+
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Color</th>
+                <th>In Stock</th>
+                <th>Actions</th>
+            </tr>
+            <tr *ngFor="let product of products">
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.color}}</td>
+                <td>{{product.inStock ? "Yes" :"Coming Soon!"}}</td>
+                <td>
+                    <button class="delete-btn" (click)="deleteProduct(product)">Delete</button>
+                    <button class="edit-btn" (click)="openEditModal(product)">Edit</button>
+                </td>
+                <div *ngIf="showEditModal" (closeEditModal)="closeEditModal()" class="modal-overlay">
+                    <div class="modal-content">
+                        <!-- Modal content goes here -->
+                        <div class="header">
+                            <h2>Edit Product</h2>
+                            <button (click)="closeEditModal()" class="delete-btn">Close</button>
+                        </div>
+                        <form (submit)="handleProductUpdate()">
+
+
+                            <label for="name">Name:
+                                <input type="text" name="productName" [(ngModel)]="productName" required>
+
+                            </label>
+
+
+                            <label for="price">Price:<input type="number" name="price" [(ngModel)]="price"
+                                    required></label>
+
+                            <label for="category">Category:<input type="text" name="category" [(ngModel)]="category"
+                                    required></label>
+
+
+                            <label for="color">Color:<input type="text" name="color" [(ngModel)]="color"
+                                    required></label>
+                            <button class="my-button" type="submit">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </tr>
+        </table>
+    </main>
+</div>
